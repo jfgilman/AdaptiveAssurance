@@ -2,7 +2,7 @@
 
 
 # for generating modulated power law failure times
-genMLPL <- function(numFail, eta, phi, kappa){
+genMPLP <- function(numFail, eta, phi, kappa){
   times <- rep(0, numFail)
   times[1] <- eta*rgamma(1, kappa, 1)^(1/phi)
   for(i in 2:numFail){
@@ -11,4 +11,4 @@ genMLPL <- function(numFail, eta, phi, kappa){
   return(times)
 }
 
-# genMLPL(10, 2, .5, .5)
+# genMPLP(10, 2, .5, .5)
