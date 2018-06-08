@@ -2,7 +2,7 @@
 
 
 # for generating modulated power law failure times
-genMPLP <- function(eta, phi, kappa, numFail = NULL, totTime = NULL){
+genMPLP <- function(eta, phi, kappa, numFail=NULL, totTime=NULL, withCen=T){
 
   if(!is.null(numFail)){
     times <- rep(0, numFail)
@@ -21,7 +21,11 @@ genMPLP <- function(eta, phi, kappa, numFail = NULL, totTime = NULL){
       while(tail(times, n=1) < totTime){
         times <- append(times, eta*((tail(times, n=1)/eta)^phi + rgamma(1, kappa, 1))^(1/phi))
       }
-      return(head(times, -1))
+      if(withCen){
+        return(c(head(times, -1), totTime))
+      }else{
+        return(head(times, -1)) 
+      }
     }
   }else{
     print("No number of failures or total time included")
@@ -29,6 +33,6 @@ genMPLP <- function(eta, phi, kappa, numFail = NULL, totTime = NULL){
   }
 }
 
-genMPLP(2, .5, .5, 10)
-
-genMPLP(2, .5, .5,totTime=30)
+# genMPLP(2, .5, .5, 10)
+# 
+# genMPLP(2, .5, .5,totTime=30)
